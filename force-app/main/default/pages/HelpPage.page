@@ -1,0 +1,19 @@
+<apex:page docType="html-5.0" controller="HelpController">
+    <script>
+    function myfunc(){
+        a();
+        console.log('##'+chl());
+    }
+    </script>
+    <apex:form >
+        <div id="di">
+            <apex:pageBlock id="hello">
+                Hello Mere Bhai.
+            </apex:pageBlock>
+            <apex:input type="number" value="{!val}" onchange="callFun()" />
+        <!--<apex:param value="{!val}" assignTo="{!val}" /> -->
+            <apex:actionFunction name="callFun" action="{!chl}" reRender="hello" />
+        </div>
+        {!val}
+    </apex:form>
+</apex:page>

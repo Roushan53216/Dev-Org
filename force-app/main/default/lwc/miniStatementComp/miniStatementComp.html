@@ -1,0 +1,26 @@
+<template>
+    <template if:true={records}>
+        <!--LIGHTNING DATATABLE-->
+        <div style="height:400px">
+            <lightning-datatable key-field="Id" data={recordsToDisplay} hide-checkbox-column="true" columns={columns}></lightning-datatable>
+        </div>
+        <div class="slds-grid slds-grid_vertical-align-center slds-grid_align-spread" style="padding-top: 0.5em;">
+            <!--RECORDS PER PAGE-->
+            <div class="slds-col">
+                <div class="slds-list_inline slds-p-bottom_xx-small">
+                    <label class="slds-text-color_weak slds-p-horizontal_x-small" for="recordsPerPage">Page Size:</label>
+                    <div class="slds-select_container">
+                        <select class="slds-select" id="recordsPerPage" onchange={handleRecordsPerPage}>
+                            <template for:each={pageSizeOptions} for:item="option">
+                                <option key={option} value={option}>{option}</option>
+                            </template>
+                        </select>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+    </template>
+
+
+</template>

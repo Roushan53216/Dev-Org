@@ -1,0 +1,7 @@
+<aura:component >
+    <aura:registerEvent name="appEvent" type="c:AppEventTest"/>
+    
+    <h1>Fire Child Event</h1>
+    <ui:Button label="Fire Child" press="{!c.fireChild}"/>	
+    
+</aura:component>

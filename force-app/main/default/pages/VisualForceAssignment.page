@@ -1,0 +1,54 @@
+<apex:page standardController="Account"  recordSetVar="accounts" sidebar="true" showHeader="true"  >
+    <apex:pageBlock title="Account List" id="accounts_list">
+        <apex:form >
+            <apex:pageBlockTable value="{!accounts }" var="acc" >
+                <apex:column > <apex:inputCheckbox /></apex:column>
+                <apex:column headerValue="Action" >
+                    <apex:commandLink value="Edit |" action="{!URLFOR($Action.Account.Edit, acc.Id)}"/>
+                    <apex:commandLink value=" Del" action="{!URLFOR($Action.Account.Delete, acc.Id)}"/>
+                </apex:column> 
+                <apex:column value="{!acc.Name}" />
+                <apex:column value="{!acc.Site}"/>
+                <apex:column value="{!acc.Phone}"/>
+                <apex:column value="{!acc.Type}"/>
+                <apex:column value="{!acc.OwnerId}"/>
+                
+            </apex:pageBlockTable>
+            <!-- Pagination -->
+            <table style="width: 100%"><tr>
+                <td>
+                   Records per page:
+                    <apex:selectList value="{! PageSize }" size="1">
+                        <apex:selectOption itemValue="5" itemLabel="5"/>
+                        <apex:selectOption itemValue="10" itemLabel="10"/>
+                        <apex:selectOption itemValue="20" itemLabel="20"/>
+                        <apex:actionSupport event="onchange" reRender="accounts_list"/>
+                    </apex:selectList>
+                </td>
+                <td align="center">
+                    <!-- Previous page -->
+                    <!-- active -->
+                    <apex:commandLink action="{! Previous }" value="« Previous"
+                                      rendered="{! HasPrevious }"/>
+                    <!-- inactive (no earlier pages) -->
+                    <apex:outputText style="color: #ccc;" value="« Previous"
+                                     rendered="{! NOT(HasPrevious) }"/>
+                    &nbsp;&nbsp;
+                    <!-- Next page -->
+                    <!-- active -->
+                    <apex:commandLink action="{! Next }" value="Next »"
+                                      rendered="{! HasNext }"/>
+                    <!-- inactive (no more pages) -->
+                    <apex:outputText style="color: #ccc;" value="Next »"
+                                     rendered="{! NOT(HasNext) }"/>
+                </td>
+                <td align="right">
+                    Page: <apex:outputText value=" {!PageNumber} of {! CEILING(ResultSize / PageSize) }"/>
+                </td>
+                </tr></table>
+          
+            
+        </apex:form>
+    </apex:pageBlock>
+    
+</apex:page>

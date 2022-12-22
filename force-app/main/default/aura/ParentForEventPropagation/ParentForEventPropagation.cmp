@@ -1,0 +1,11 @@
+<aura:component >
+    <c:ChildForEventPropagation />
+    <aura:attribute name="message" type="String" default="Parent String"/>
+    <aura:attribute name="number" type="Integer" default="7"/>
+    
+    <aura:handler name="childEventComp" event="c:EventForPropagationDemo" action="{!c.catchEvent}"/>
+    
+    {!v.message}
+    {!v.number}
+    
+</aura:component>

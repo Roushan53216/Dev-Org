@@ -1,0 +1,13 @@
+.THIS {
+}
+.THIS.firstName{
+    outline: none;
+    border:none;
+    background-image:none;
+    background-color:White;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none; 
+    outline: none !important; 
+    
+}

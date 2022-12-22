@@ -1,0 +1,43 @@
+<aura:component controller="RecptionComoponentCtrl" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">
+
+    <aura:attribute name="patientName" type="String" />
+    <aura:attribute name="departmentToAdmit" type="List" />
+    <aura:attribute name="departmant" type="String" />
+    <aura:attribute name="doctorList" type="List" />
+    <aura:attribute name="doctor" type="String" />
+    <aura:attribute name="appointmentDate" type="Date"/>
+    <aura:attribute name="appointmentTime" type="String"/>
+    <aura:attribute name="appointmentShift" type="String"/>
+
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+        <lightning:card class="verticalImage ">
+            <img src="{!$Resource.loginimg}" style="height:350px;width:5120px;"/>
+        </lightning:card>
+
+        <lightning:card title="Book Appointment " class="card ">
+            <div class="slds-grid slds-gutters ">
+                <div class="slds-col">
+                    <lightning:input name="patientName" type="text" value="{!v.patientName}" label="Patient Name " />
+                    <lightning:combobox name="departmantToadmit" label="Department To Admit" placeholder="Select a Department" options="{!v.departmentToAdmit }" value="{!v.departmant}" onchange="{!c.getDoctors}"/>
+                    <lightning:input name="appointmentShift" type="text" value="{!v.appointmentShift}" label="Appointment Shift " />
+                </div>
+
+                <div class="slds-col">
+                    <lightning:input name="appointMentDate" type="Date" value="{!v.appointmentDate}" label="Appointment Date " />
+                    <lightning:input name="appointMentTime" type="time" value="{!v.appointmentTime}" label="Appointment Time " />
+                    <lightning:combobox name="doctorToAppoint" label="Doctor's " placeholder="Select Doctor To Appoint " options="{!v.doctorList}" value="{!v.doctor}" />
+                    
+                </div>
+            </div>
+            <div class="submitButton">
+                <div class="slds-grid">
+                    <lightning:button label="Book Appointment" onclick="{!c.handleSubmit}"/>
+                </div>
+            </div> 
+        </lightning:card>
+    
+
+
+</aura:component>

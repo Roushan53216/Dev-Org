@@ -1,0 +1,80 @@
+<aura:component controller="KanbanAssignmentCls">
+	
+    <aura:attribute name="objectName" type="String" default="Opportunity"/>
+    <aura:attribute name="picklistField" type="String" default="StageName" />
+    <aura:attribute name="NumberField" type="String" default="Amount" />
+    
+    <aura:attribute name="kanbanData" type="KanbanAssignmentCls.kanbanWrapper" />
+    <aura:attribute name="totalAmountandRec" type="KanbanAssignmentCls.totalAmountWrapper"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" /> 
+    
+    {!v.objectName}    
+    <div style="padding:0.5rem;">
+        <aura:iteration var="pickVal" items="{!v.kanbanData.picklistValues}" indexVar="index">
+            <aura:iteration var="numOfRec" items="{!v.totalAmountandRec.numOfRecords}" indexVar="recIndex">
+                <aura:if isTrue="{!index == recIndex}">
+                    <div class="stageContainer" style="{!'width:calc(100vw/'+(v.kanbanData.picklistValues.length+0.5)+')'}">
+                        <div class="slds-grid slds-grid_horizontal"> 
+                            <div>
+                                <div class="slds-media slds-no-space slds-has-divider_bottom-space slds-media_center" style="{!'width:calc(100vw/'+(v.kanbanData.picklistValues.length+1)+')'}">
+                                    <div class="slds-media__body">
+                                        <h1 class="slds-page-header__title slds-align-middle slds-truncate" title="{!pickVal}">{!pickVal}</h1>({!numOfRec})
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </aura:if>
+            </aura:iteration>
+        </aura:iteration>
+    </div>
+    <div style="padding:0.5rem;">
+        <aura:iteration var="amountVal" items="{!v.totalAmountandRec.totalAmount}">
+            <div class="stageContainer" style="{!'width:calc(100vw/'+(v.totalAmountandRec.totalAmount.length+0.5)+')'}">
+                <div class="slds-grid slds-grid_horizontal">
+                    <div>
+                        <div class="slds-media slds-no-space slds-has-divider_bottom-space slds-media_center" style="{!'width:calc(100vw/'+(v.totalAmountandRec.totalAmount.length+1)+')'}">
+                            <div class="slds-media__body">
+                                <h1 class="slds-page-header__title slds-align-middle slds-truncate" >$ {!amountVal}</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aura:iteration>
+    </div>
+        <!---From Here -->
+    <div style="padding:0.5rem;">
+        
+        <aura:iteration var="records" items="{!v.kanbanData.recordList}" indexVar="index">
+            <div class="stageContainer" style="{!'width:calc(100vw/'+(v.kanbanData.recordList.length+0.5)+')'}">
+                <div class="slds-grid slds-grid_vertical">
+                </div>                
+                <ul ondrop="{!c.drop}" ondragover="{!c.allowDrop}" class="slds-has-dividers_around-space dropZone" data-Pick-Val="{!index}" style="height:70vh;overflow-y:auto;">
+                    <aura:iteration var="objRecord" items="{!records}" >
+                        <li class="slds-item slds-m-around_small" draggable="true" ondragstart="{!c.drag}" id="{!objRecord.Id}">
+                            <article class="slds-tile slds-tile_board">
+                                <h3 class="slds-truncate" title="{!objRecord.Name}">
+                                    <a href="javascript:void(0);" onclick="{!c.doView}"> 
+                                        <span class="slds-truncate" id="{!objRecord.Id}">{!objRecord.Name}</span>
+                                    </a>
+                                </h3>
+                               <!-- <div class="slds-tile__detail slds-text-body_small">
+                                    <p class="slds-text-heading_medium" value="{!Amount}">Amount: ${!objRecord.Amount}</p>
+                                    
+                                </div> -->
+                            </article>
+                        </li>
+                    </aura:iteration> 
+                </ul>
+                
+            </div>
+ 
+        </aura:iteration>
+        
+        
+        
+    </div>
+    
+</aura:component>

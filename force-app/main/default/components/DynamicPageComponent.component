@@ -1,0 +1,13 @@
+<apex:component controller="DynamicPageController">
+    <apex:attribute name="objectName" description="The object's name" type="String" required="true" assignTo="{!objName}"/>
+    <apex:attribute name="fieldName" description="Fields to be displayed" type="String[]" required="true" assignTo="{!fieldNames}"/>
+    <apex:pageBlock >
+        <apex:pageBlockTable value="{!WrapperContacts}" var="contacts">
+            <apex:repeat value="{!fieldNames}" var="fldNames">
+                <apex:column value="{!contacts.con[fldNames]}"/> 
+            </apex:repeat>
+        </apex:pageBlockTable>
+        
+        
+    </apex:pageBlock>
+</apex:component>

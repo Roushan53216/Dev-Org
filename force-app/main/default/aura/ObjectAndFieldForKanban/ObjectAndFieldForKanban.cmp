@@ -1,0 +1,60 @@
+<aura:component controller="KanbanObjectAndFeildCls" implements="force:appHostable">
+    
+    <aura:registerEvent name="knbanEvent" type="c:KanbanEvent"/>
+    
+    <aura:attribute name="allObject" type="List" />
+    <aura:attribute name="allField" type="List" />
+    <aura:attribute name="selectedObject" type="String" />
+    <aura:attribute name="selectedField" type="String" />
+    <aura:attribute name="pickListValue" type="List" />
+    <aura:attribute name="selectedPickVal" type="String"/> 
+    
+    <!-- HANDLERS -->
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    
+    <div class="modal-header slds-modal__header slds-size_1-of-1">
+        <h4 class="title slds-text-heading--medium">All Object &#38; Respective Fields</h4>
+    </div>
+    <!--End Modal Header-->
+    
+    <!--Modal Body-->
+    <div class="slds-modal__content slds-p-around--x-small slds-align_absolute-center slds-size_1-of-1 slds-is-relative">
+        <form class="slds-form--stacked">
+            Select any Object and get All the Fields...
+        </form>
+    </div>
+    <div class="slds-grid slds-gutters slds-p-around_medium">
+        <div class="slds-col slds-size_1-of-2">
+            <span><lightning:select name="objects" label="Select a Object" aura:id="objectId" value="{!v.selectedObject}" onchange="{!c.handleChange}">
+                <option value="">choose one...</option>
+                <aura:iteration items="{!v.allObject}" var="object">
+                    <option text="{!object.value}" value="{!object.key}" selected="{!object.selected}"/>
+                </aura:iteration>
+                </lightning:select>
+            </span> 
+        </div>
+        <aura:if isTrue="{!v.selectedObject}">
+            <div class="slds-col slds-size_1-of-2">
+                <span><lightning:select name="allField" label="Here are the Fields" aura:id="fieldId" value="{!v.selectedField}">
+                    <aura:iteration items="{!v.allField}" var="field">
+                        <option text="{!field}" value="{!field}" selected="{!field.selected}"/>
+                    </aura:iteration>
+                    </lightning:select>
+                </span>
+            </div>
+        </aura:if>
+        <aura:if isTrue="{!v.selectedObject}">
+            <div class="slds-col slds-size_1-of-2">
+                <span><lightning:select name="allPickListField" label="Here are the PickList Feilds" aura:id="pickListId" value="{!v.selectedPickVal}">
+                    <aura:iteration items="{!v.pickListValue}" var="field">
+                        <option text="{!field}" value="{!field}" selected="{!field.selected}"/>
+                    </aura:iteration>
+                    </lightning:select>
+                </span>
+            </div>
+        </aura:if>
+    </div>
+    <Lightning:button label="Show Obj And Feild " onclick="{!c.passObjAndFeild}"/>
+    
+    
+</aura:component>

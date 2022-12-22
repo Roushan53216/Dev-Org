@@ -1,0 +1,8 @@
+<aura:event type="COMPONENT" description="Event template" >
+	
+    <aura:attribute name="message" type="String" />
+    <aura:attribute name="number" type="Integer"/>
+
+
+
+</aura:event>

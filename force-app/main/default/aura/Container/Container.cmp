@@ -1,0 +1,4 @@
+<aura:component >
+    <c:AppEventTestChild/>
+    <c:AppEventTestParent/>
+</aura:component>

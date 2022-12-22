@@ -1,0 +1,7 @@
+<aura:component >
+	<aura:method name="auraDemo" action="{!c.callAuraMethod}" access="public">
+        <aura:attribute name="para1" type="String" default="Hello"/>
+        <aura:attribute name="para2" type="String" default="World!"/>
+    </aura:method>
+    {!para1}
+</aura:component>

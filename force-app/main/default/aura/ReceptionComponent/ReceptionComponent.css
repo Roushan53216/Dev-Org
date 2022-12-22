@@ -1,0 +1,21 @@
+.THIS.slds-grid {
+    width: 1000px;
+}
+.THIS.submitButton {
+    margin: 10px;
+    margin-left: 535px;
+}
+.THIS.card {
+    min-width:430px;
+    max-width:920px;
+    min-height: 430px;
+    max-height: 700px;
+    margin-left: 500px;
+    padding: 40px;
+    margin-top: 20px;
+}
+.THIS.verticalImage {
+    max-width:5120px;
+    max-height: 10000px;
+    
+}

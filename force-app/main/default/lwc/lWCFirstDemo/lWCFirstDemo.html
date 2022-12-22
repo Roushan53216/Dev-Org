@@ -1,0 +1,64 @@
+<template>
+    This is my first Lwc
+    {message} 
+
+    <c-child-l-w-c-demo onbtnclick={handleChildEvent} messages={message} ></c-child-l-w-c-demo>
+
+    <lightning-button label=" Call Child Component " onclick={callChild}></lightning-button>
+    <lightning-button label=" Call Child Component  Method " onclick={callChildMethod}></lightning-button>
+    <lightning-button label=" Navigation " onclick={handleNavigation}></lightning-button>
+
+
+
+    <lightning-input label="Type Here" required value={input} onchange={handleClick}>
+    </lightning-input>
+    {input}
+
+    <lightning-button label="get Account " onclick={getAcc}></lightning-button> 
+    
+
+    <div>
+        <lightning-input label="Get Accounts" value={input} onchange={getAccounts} >
+        </lightning-input>
+    </div>
+    <div>
+        <template for:each={results} for:item="result" >
+            <p key={result.Id}>
+                {result.Name} 
+            </p>
+        </template>
+    </div>
+    <div>
+        <p> Parent to Child Demo </p>        
+    </div>
+    <lightning-click-to-dial></lightning-click-to-dial>
+
+    <p>
+        LDS Demo 
+    </p>
+
+    <lightning-record-form
+    object-api-name="Account"
+    layout-type="full"
+    columns="4"
+    mode="readonly"
+    ></lightning-record-form>
+
+
+    
+    <lightning-card title="Data Sorting in Lightning Datatable in LWC" icon-name="standard:contact" >
+        <br/>
+        <div style="width: auto;">
+            <template if:true={results}>
+                <lightning-datatable data={results}
+                                     columns={cloumn}
+                                     key-field="id"
+                                     
+                                     hide-checkbox-column="true"></lightning-datatable>
+            </template>
+        </div>
+    </lightning-card>
+
+
+
+</template>

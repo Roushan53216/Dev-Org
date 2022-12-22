@@ -1,0 +1,13 @@
+<aura:component implements="force:appHostable,flexipage:availableForRecordHome,force:hasRecordId,flexipage:availableForAllPageTypes">
+    <aura:attribute name="filetype" type="List" default="['.png', '.jpg', '.jpeg']" />
+    <aura:attribute name="multiple" type="Boolean" default="true" />
+    <aura:attribute name="disabled" type="Boolean" default="true" />
+    
+    
+    
+    <lightning:fileUpload label="Attach receipt"
+                          name="fileUploader"
+                          recordId="{!v.recordId}"
+                          onuploadfinished="{!c.upload}"
+                           />
+</aura:component>

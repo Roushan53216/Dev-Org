@@ -1,0 +1,20 @@
+<template>
+
+    <div>
+        <lightning-accordion allow-multiple-sections-open >
+            <lightning-accordion-section name="Filter" label="Filters ">
+                <div>
+                    <lightning-dual-listbox name="languages"
+                                        label="Select Feilds"
+                                        source-label="Available"
+                                        selected-label="Selected"
+                                        field-level-help="Selected Feilds"
+                                        options={queryAbleFileds}
+                                        value={selectedFilterField}
+                                        onchange={handleFilterChange}></lightning-dual-listbox>
+                </div>
+            </lightning-accordion-section>
+        </lightning-accordion>
+    </div>
+
+</template>

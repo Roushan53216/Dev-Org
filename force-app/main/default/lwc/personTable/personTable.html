@@ -1,0 +1,18 @@
+<template>
+    <c-data-filler oncollecteddata={collectData}></c-data-filler>
+    <div style="height: 300px;">
+        <lightning-datatable
+                key-field="id"
+                hide-checkbox-column="true"
+                data={data}
+                columns={columns}>
+        </lightning-datatable>
+    </div>
+    <!--
+    <template for:each={hell} for:item="res">
+        <li key={res.name}>
+           <lightning-formatted-rich-text value={res.name}></lightning-formatted-rich-text>
+        </li>
+     </template>-->
+
+</template>

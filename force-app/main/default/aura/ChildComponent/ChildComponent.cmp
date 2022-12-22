@@ -1,0 +1,12 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+	
+    <aura:registerEvent name="cmpEvent" type="c:TestEvent"/>
+    
+    <aura:attribute name="messageString" type="String"/>
+    <h1>
+        Component Event Notifier
+    </h1>
+    <ui:inputText label="message" value="{!v.messageString}"/>
+    <ui:button label="Fire Component Event" press="{!c.FireComponentEvent}"/>
+    
+</aura:component>

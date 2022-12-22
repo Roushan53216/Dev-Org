@@ -1,0 +1,14 @@
+<aura:component >
+    <aura:registerEvent name="propagationDemo" type="c:EventForPropagationDemo"/>
+    
+    <aura:attribute name="messageString" type="String" default="Child Message"/>
+    <aura:attribute name="numbr" type="Integer" default="77"/>
+    
+    
+    <ui:button label="Fire Event" press="{!c.fireChild}"/>
+    {!v.messageString}
+    <hr></hr>
+    {!v.numbr}
+    <hr></hr>
+    
+</aura:component>

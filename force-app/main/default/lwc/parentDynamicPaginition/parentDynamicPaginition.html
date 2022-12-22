@@ -1,0 +1,160 @@
+<template> <!--
+    <div>
+        <c-chech-table-comp></c-chech-table-comp>
+    </div>-->
+    
+    <div>
+        <c-child-dynamic-paginition onsend_data_to_parent={getAllChildData}> </c-child-dynamic-paginition>
+    </div>
+
+    <!--Show The QueryAble Fields For Filter -->
+    <template if:true={showTable}>
+        <div>
+            <lightning-accordion allow-multiple-sections-open >
+                <lightning-accordion-section name="Filter" label="Filters ">
+                    <div>
+                        <lightning-dual-listbox name="languages"
+                                            label="Select Feilds"
+                                            source-label="Available"
+                                            selected-label="Selected"
+                                            field-level-help="Selected Feilds"
+                                            options={queryAbleFileds}
+                                            value={selectedFilterField}
+                                            onchange={handleFilterChange}></lightning-dual-listbox>
+                    </div>
+                </lightning-accordion-section>
+            </lightning-accordion>
+        </div>
+    </template>
+
+    <!-- Rendering Selected Fields Of Filters  -->
+    <template if:true={showFilterSction}>
+        <div>
+            <lightning-accordion>
+                <lightning-accordion-section name="FilterFields" label="Filters Fields">
+                    <div class="slds-clearfix">
+                        <div class="slds-float_right">
+                            <lightning-button label=" Filter Records " onclick={handleFilter}></lightning-button>
+                            <span><lightning-button label=" Clear " onclick={handleClearFilter}></lightning-button></span>
+                        </div>
+                    </div>
+                        <!-- Rendering Selected String Fields Of Filters  -->
+                        <template if:true={nameFilterFields} for:each={nameFilterFields} for:item="name" for:index="index">
+                            <div class="slds-grid slds-grid_vertical-align-center slds-grid_align-spread" style="padding-top: 0.5em;" key={name.value}>
+                                <div class="slds-col">
+                                    <lightning-input data-index={index} data-field-api-name={name.value} label={name.value} type="text" value={clear}
+                                    placeholder={name.value} onchange={handleNameFilterChange}>
+                                </lightning-input>
+                                </div>
+                            </div>
+                        </template>
+                        <!-- Rendering Selected Phone  Fields Of Filters  -->
+                        <template if:true={phoneFilterFields} for:each={phoneFilterFields} for:item="phone" for:index="index">
+                            <div class="slds-grid slds-grid_vertical-align-center slds-grid_align-spread" style="padding-top: 0.5em;" key={name.value}>
+                                <div class="slds-col">
+                                    <lightning-input data-index={index} data-field-api-name={phone.value} label={phone.value} type="phone" value={clear}
+                                    placeholder={phone.value} onchange={handlePhoneFilterChange}>
+                                </lightning-input>
+                                </div>
+                            </div>
+                        </template>
+                        <!-- Rendering Selected PickList  Fields Of Filters  -->
+                        <template if:true={pickListFeilds} for:each={pickListFeilds} for:item="pickList" for:index="index">
+                            <div class="slds-grid slds-grid_vertical-align-center slds-grid_align-spread" style="padding-top: 0.5em;" key={pickList.key}>
+                                <div class="slds-col"> 
+                                    <lightning-combobox
+                                            label={pickList.key}
+                                            placeholder="Select"
+                                            value={clear}
+                                            options={pickList.value}
+                                            onchange={handlePickValChange} ></lightning-combobox>
+                                </div>
+                            </div>
+                        </template>
+                        <!-- Rendering Selected Number Or Currency  Fields Of Filters  -->
+                        <template if:true={numberFilterFields} for:each={numberFilterFields} for:item="numCUrrency" for:index="index">
+                            <div class="slds-grid slds-grid_vertical-align-center slds-grid_align-spread" style="padding-top: 0.5em;" key={numCUrrency.value}>
+                                <div class="slds-col">
+                                    <lightning-input data-index={index} data-field-api-name={numCUrrency.value} label={numCUrrency.value} type="number" value={clear}
+                                    placeholder={numCUrrency.value} onchange={handlePhoneFilterChange}>
+                                </lightning-input>
+                                </div>
+                            </div>
+                        </template>
+                        <!-- Rendering Selected Date  Fields Of Filters  -->
+                        <template if:true={dateFilterFields} for:each={dateFilterFields} for:item="dat" for:index="index">
+                            <div class="slds-grid slds-grid_vertical-align-center slds-grid_align-spread" style="padding-top: 0.5em;" key={dat.value}>
+                                <div class="slds-col">
+                                    <lightning-input data-index={index} data-field-api-name={dat.value} label={dat.value} type="date" value={clear}
+                                    placeholder={dat.value} onchange={handlePhoneFilterChange}>
+                                </lightning-input>
+                                </div>
+                            </div>
+                        </template>
+                        <!-- Rendering Selected Date And Time Fields Of Filters  -->
+                        <template if:true={dateTimeFilterFields} for:each={dateTimeFilterFields} for:item="dateTime" for:index="index">
+                            <div class="slds-grid slds-grid_vertical-align-center slds-grid_align-spread" style="padding-top: 0.5em;" key={dateTime.value}>
+                                <div class="slds-col">
+                                    <lightning-input data-index={index} data-field-api-name={dateTime.value} label={dateTime.value} type="datetime" value={clear}
+                                    placeholder={dateTime.value} onchange={handlePhoneFilterChange}>
+                                </lightning-input>
+                                </div>
+                            </div>
+                        </template>
+                </lightning-accordion-section>
+            </lightning-accordion>
+        </div>
+    </template>
+    
+    <!--Rendering The Record Table -->
+    <template if:true={showTable}>
+        <div>
+            <lightning-datatable
+                    key-field="id"
+                    data-id="datarow"
+                    data={records}
+                    columns={columns} 
+                    onrowselection={rowSelection}
+                    selected-rows={selection}
+                    sorted-by={sortBy}
+                    sorted-direction={sortDirection}
+                    onsort={handleSortRecordData}
+                    > 
+            </lightning-datatable>
+        </div>
+    
+        <div class="slds-grid slds-grid_vertical-align-center slds-grid_align-spread" style="padding-top: 0.5em;">
+            <!--RECORDS PER PAGE-->
+            <div class="slds-col">
+                <div class="slds-list_inline slds-p-bottom_xx-small">
+                    <label class="slds-text-color_weak slds-p-horizontal_x-small" for="recordsPerPage">Page Size:</label>
+                    <div class="slds-select_container">
+                        <select class="slds-select" id="recordsPerPage" onchange={handleRecordsPerPage}>
+                            <template for:each={pageSizeOptions} for:item="option">
+                                <option key={option} value={option}>{option}</option>
+                            </template>
+                        </select>
+                    </div>
+                </div>
+            </div>
+             <!--PAGE NAVIGATION-->
+             <div class="slds-align_absolute-center" style="height:5rem">
+                <lightning-button disabled={bDisableFirst} icon-name="utility:jump_to_left" label="First" class="slds-p-horizontal_x-small"  onclick={firstPage}></lightning-button>
+                <lightning-button disabled={bDisableFirst} icon-name="utility:chevronleft" label="Previous"  onclick={previousPage}></lightning-button>
+                &nbsp;
+                <span class="slds-badge">{pageNumber} &nbsp;of&nbsp; {totalPages} &nbsp;&nbsp;Page(s)</span>
+                &nbsp;
+                <lightning-button disabled={bDisableLast} icon-name="utility:chevronright" label="Next"  onclick={nextPage} class="slds-p-horizontal_x-small" icon-position="right"></lightning-button>
+                <lightning-button disabled={bDisableLast} icon-name="utility:jump_to_right" label="Last" onclick={lastPage} icon-position="right"></lightning-button>
+            </div>
+            <!--TOTAL RECORDS--><!--
+            <div class="slds-clearfix">
+                <div class="slds-float_right">
+                    <lightning-input type="number" value={pageNumber} onchange={pageNumHandle}></lightning-input>
+                    <span class="slds-badge"> Of : {totalPages}</span>
+                </div>
+            </div>-->
+        </div>
+    </template>
+
+</template>

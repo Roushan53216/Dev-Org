@@ -1,0 +1,9 @@
+<apex:page sidebar="false" showHeader="false" >
+    <h1>
+        Hello World!
+    </h1>
+    <apex:pageBlock title="Test">
+        <apex:pageBlockSection title="2nd Test">    
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:page>

@@ -1,0 +1,10 @@
+<apex:page controller="RishabDemoClass">
+     
+        <apex:pageBlock >
+            <apex:pageblockTable value="{!acc}" var="a">
+                <apex:column value="{!a.Name}"/>
+                <apex:column value="{!a.AccountNumber}"/>
+            </apex:pageblockTable>
+        </apex:pageBlock>
+    
+</apex:page>

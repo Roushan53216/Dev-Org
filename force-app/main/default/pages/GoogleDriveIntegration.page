@@ -1,0 +1,17 @@
+<apex:page controller="cGoogleAppAuthenticationWithSalesforce" sidebar="true" showHeader="true">
+    <apex:form >
+        <apex:pageBlock >
+            <apex:commandButton value="Authenticate" action="{!DriveAuth}"/>
+            <apex:pageBlockTable value="{!FileIdAndNameMapFortheAccount}" var="f">
+                <apex:column headerValue="Drive Files" value="{!FileIdAndNameMapFortheAccount[f]}">
+                    <!-- <apex:outputLink value="https://drive.google.com/open?id={!f}" target="_blank">{!FileIdAndNameMapFortheAccount[f]}</apex:outputLink>
+ -->
+                    
+                </apex:column>
+            </apex:pageBlockTable>
+            
+        </apex:pageBlock>
+        
+                
+    </apex:form>
+</apex:page>

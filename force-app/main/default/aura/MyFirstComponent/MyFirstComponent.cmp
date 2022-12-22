@@ -1,0 +1,31 @@
+<aura:component controller ="MyFirstComponentController" implements="force:appHostable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes" >
+    
+    <aura:attribute name="listOpportunity" type="Opportunity[]"/>
+    <aura:attribute name="columnToDisplay" type="List"/>
+    <aura:attribute name="searchKeyword" type="String"/>
+    <!--Method to be called n component initilization --> 
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <lightning:card iconName="standard:opportunity" title="Opportunity List" /> 
+	<!--Search Box -->
+	<lightning:layout>
+        <lightning:layoutitem size="3" padding="around-small">
+            <lightning:input aura:id="searchFeild"
+                             label="Opportunity Name"
+                             value="{!v.searchKeyword}"
+                             placeholder="Search Opportunity"
+                             onchange = "{!c.searchOpportunity}"/>
+        </lightning:layoutitem>
+    </lightning:layout>
+    
+    <!-- Opportunity List Comes Here -->
+    <lightning:datatable data="{!v.listOpportunity}"
+                         columns = "{!v.columnToDisplay}"
+                         keyField = "id"
+                         hideCheckboxColumn = "true"/>
+    
+    
+                  <lightning:input type="text" class="firstName" label="First Name" required="true" value="{firstName}"  message-when-value-missing="The First Name field is required."></lightning:input>
+	    
+</aura:component>

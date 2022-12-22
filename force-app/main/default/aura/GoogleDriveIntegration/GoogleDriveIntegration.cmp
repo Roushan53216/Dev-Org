@@ -1,0 +1,67 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:isUrlAddressable" 
+                access="global" 
+                controller="GoogleDriveAuthentication" >
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doAuth}" />
+    <aura:attribute name="accessToken" type="String" />
+    <aura:attribute name="access" type="String" /> 
+    <aura:attribute name="files" type="Map"/>
+    <aura:attribute name="folders" type="Map"/>
+    <aura:attribute name="ShowFiles" type="Boolean" default="false"/>
+    <aura:attribute name="myRecordId" type="String" />
+    <aura:attribute name="spinner" type="Boolean"/>
+    <aura:attribute name="stop" type="Boolean"/>
+    <aura:attribute name="FolderFiles" type="Map"/>
+    <aura:attribute name="showFolderFiles" type="boolean" default="false" />
+    <aura:attribute name="breadCrumbs" type="boolean" />
+    
+    <lightning:card>
+        <p class="slds-p-horizontal_small">
+            <!--file upload part -->
+            <lightning:fileUpload label="upload file to Drive" 
+                                  name="fileUploader"
+                                  multiple="false" 
+                                  recordId="{!v.myRecordId}" 
+                                  onuploadfinished="{!c.handleFilesChange}" /> 
+        </p>
+    </lightning:card>
+    <br></br>
+    <aura:if isTrue="{!v.spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Getting Files...</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+    <aura:renderIf isTrue="{!v.ShowFiles}">
+        <aura:iteration items="{!v.folders}" var="folders" indexVar="key"> 
+            <div class="box" >
+                <a onclick="{!c.getFolderFiles}" data-id="{!folders.key}">{!folders.value}</a> 
+            </div>
+        </aura:iteration>
+    </aura:renderIf>
+    <aura:renderIf isTrue="{!v.showFolderFiles}">
+        <lightning:breadcrumbs>
+            <lightning:breadcrumb label="Home " onclick="{!c.hideBreadCrumbs}"/>
+            <lightning:breadcrumb label="Case" />
+        </lightning:breadcrumbs>
+        <aura:iteration items="{!v.FolderFiles}" var="file" indexVar="key">
+            <div class="box" >
+                <a onclick="{!c.hidefiles}">{!file.value}</a> 
+            </div>
+        </aura:iteration>
+    </aura:renderIf>
+    
+    <aura:renderIf isTrue="{!v.ShowFiles}">
+        <aura:iteration items="{!v.files}" var="file" indexVar="key">
+            <div class="box">
+                {!file.value}
+                <a href="" onclick="{!c.downloadFile}" data-id="{!file.key}" >  Download </a> <br></br>
+            </div>
+        </aura:iteration>
+    </aura:renderIf>
+    
+    
+</aura:component>

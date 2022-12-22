@@ -1,0 +1,108 @@
+<apex:page controller="TestingController" >
+    <script type="text/javascript"> 
+    function selectAllCheckboxes(obj,receivedInputID){
+        var inputCheckBox = document.getElementsByTagName("input");
+        for(var i=0; i<inputCheckBox.length; i++){
+            if(inputCheckBox[i].id.indexOf(receivedInputID)!=-1){
+                inputCheckBox[i].checked = obj.checked;
+            }
+        }
+    }
+    
+    </script>
+    <apex:form id="form">  
+        <b>Select Object </b>
+        <apex:pageBlock >     
+            <apex:pageBlockSection id="objectPB">   
+                <apex:selectList value="{!selectedObject}" size="1" >
+                    <apex:selectOptions value="{!objectOptions}" />
+                    <apex:actionSupport reRender="form,objectPB,feildPB,tabl,PB2" event="onchange" />
+                    <apex:param value="{!selectedObject}" assignTo="{!selectedObject}">
+                    </apex:param>
+                </apex:selectList>    
+            </apex:pageBlockSection>    
+            <apex:pageBlockSection title="Select Feilds" id="feildPB" rendered="{!IF(selectedObject!=NULL,true,false)}">
+                <apex:selectList value="{!selectedFields}" size="10" multiselect="true">
+                    <apex:selectOptions value="{!fieldOptions}" />
+                    <apex:param value="{!selectedFields}" assignTo="{!selectedFields}"/>
+                    <apex:actionSupport reRender="PB" event="onchange"/>
+                </apex:selectList>   
+            </apex:pageBlockSection>
+            <apex:pageBlockSection id="PB">    
+                {!selectedFields}     
+            </apex:pageBlockSection>
+            <apex:commandButton value="Show Table" action="{!rendering}" reRender="form,tabl" rendered="{!IF(selectedObject!=NULL,true,false)}" />
+        </apex:pageBlock>  
+        
+        <apex:pageBlock id="tabl" mode="edit">
+            <apex:pageBlockSection rendered="{!renderBlock}" >
+                <div align="Right">
+                    <apex:panelGrid > 
+                        <apex:repeat value="{!alphabet}" var="alph">
+                            <apex:commandLink value="{!alph} | " action="{!getalphaSearch}" reRender="tabl">
+                                <apex:param name="a" value="{!alph}" assignTo="{!alphaSearch}"/>
+                            </apex:commandLink>
+                        </apex:repeat>
+                    </apex:panelGrid>  
+                </div>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection id="PB2" >   
+                <apex:pageBlockTable value="{!ObjectRecordList}" var="list" id="table" rendered="{!renderBlock}">
+                    <apex:column >   
+                        <apex:facet name="header"> 
+                            <apex:inputCheckbox onclick="selectAllCheckboxes(this,'inputId')" id="allChk"/> 
+                        </apex:facet>
+                        <apex:inputCheckbox id="inputId"/> 
+                    </apex:column>  
+                    <apex:column headerValue="Action"> 
+                        <apex:commandLink value="Edit |" action="{!URLFOR($Action.Account.Edit, list.Id)}"/>
+                        <apex:commandLink onclick="return confirm('Are you sure?');" value=" Del" action="{!URLFOR($Action.Account.Delete,list.Id)}"/>
+                    </apex:column> 
+                    <apex:column id="firstcolumn" >
+                        <apex:facet name="header">
+                            <apex:commandLink value="{!firstcol}{!IF(sortDir == 'ASC',' ▼',' ▲' )}" action="{!sortValues}" >
+                                <apex:param value="{!firstCol}" assignTo="{!columnValue}"/>
+                            </apex:commandLink>
+                        </apex:facet>
+                        {!list[firstCol]}
+                    </apex:column>
+                    <apex:repeat value="{!selectedFields}" var="fld">
+                        <apex:column >
+                            <apex:facet name="header">    
+                                <apex:commandLink value="{!fld}{!IF(sortDir == 'ASC',' ▼',' ▲' )}" action="{!sortValues}" id="cmdLink">
+                                    <apex:param name="a" value="{!fld}" assignTo="{!columnValue}"></apex:param>
+                                </apex:commandLink> 
+                            </apex:facet>
+                            {!list[fld]}   
+                        </apex:column>
+                    </apex:repeat>    
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+            <apex:pageBlock id="pagintion" rendered="{!renderBlock}">
+                <div align = "center" >
+                    <apex:commandButton action="{!stdSetController.first}" value="<<" title="First Page" disabled="{!!stdSetController.HasPrevious}" reRender="tabl,button"/>
+                    <apex:commandButton action="{!stdSetController.previous}" value="Previous" disabled="{!!stdSetController.HasPrevious}" reRender="tabl,button"/>
+                    <apex:commandButton action="{!stdSetController.next}" value="Next >" disabled = "{!!stdSetController.HasNext}" reRender="tabl,button"/>
+                    <apex:commandButton action="{!stdSetController.last}" value=">>" title="Last Page" disabled="{!!stdSetController.HasNext}" reRender="tabl,button"/>
+                    
+                    <span style="float:right">
+                        <apex:outputLabel value="Page ">
+                        </apex:outputLabel>
+                        <apex:InputText value="{!PageNumber}" maxLength="4" size="1"/>
+                        <!-- To navigate to the page-->           
+                        <apex:outputLabel value=" of {!TotalPages}">
+                        </apex:outputLabel>
+                    </span>
+                    <span style = "float:left">
+                        <apex:SelectList value="{!RecordsPerPageslist}" size="1">
+                            <apex:selectOptions value="{!RecordsPerPageOptionList}">    
+                            </apex:selectOptions>
+                            <apex:actionSupport event="onchange" reRender="tabl"/>
+                        </apex:SelectList>
+                    </span>
+                </div>
+            </apex:pageBlock>
+        </apex:pageBlock>
+    </apex:form>
+    
+</apex:page>

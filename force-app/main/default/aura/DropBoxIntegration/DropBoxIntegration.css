@@ -1,0 +1,26 @@
+.THIS.block {
+    border: 1px solid #d8dde6;
+    border-radius: 0.25rem;
+    background-clip: padding-box;
+    padding: 0.45rem;
+    margin: 0.25rem;
+    width : 400px;
+}
+.THIS.slds-spinner_container {  
+  z-index: 1000;
+  position: fixed;   
+}
+.THIS.block {
+  display: inline-block; 
+   width: 150px;
+   margin-right: 10px;
+   font-size: 14px;
+}
+.THIS.folders{
+  border: 1px solid #d8dde6;
+  border-radius:5px 30px 30px 5px;
+    background-clip: padding-box;
+    padding: 0.45rem;
+    margin: 0.25rem;
+    width : 80px;
+}

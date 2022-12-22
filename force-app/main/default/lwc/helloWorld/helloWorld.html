@@ -1,0 +1,23 @@
+<template>
+    <div>
+        {output}
+      </div>
+      <lightning-button onclick={asyncCall} label="Async/Await"> 
+      </lightning-button>
+      <lightning-button onclick={promiseCall} label="Promise Chain">
+      </lightning-button> 
+
+      <p>-------------------------------------------------------------------------</p>
+
+      <lightning-button label="Call Both Apex " onclick={callBothMethod}> </lightning-button>
+
+      <br>
+      String 1 : {str1} {str2} <br>
+      String 2 : {str2}
+
+
+      <div class="checkDiv">
+        <lightning-button label="Call Promise " onclick={callfrompromise}> </lightning-button>
+      </div>
+
+</template>

@@ -1,0 +1,31 @@
+.THIS {
+}
+.THIS.input.slds-form-element.slds-form-element__control.slds-grow.slds-input{
+    border:none;
+    border: 0;
+    outline: none;
+    border-color: transparent;
+    border-bottom: 1px solid black;
+    border-radius: none;
+    box-sizing: none;
+    box-lines: none;
+    background : red;
+}
+.THIS.input{
+    border:none;
+    border: 0;
+    outline: none;
+    border-color: transparent;
+    border-bottom: 1px solid black;
+    border-top: transparent;
+    border-radius: none;
+    box-sizing: none;
+    box-lines: none;
+    padding : 0px 0px 0px 0px;
+
+}
+.THIS.slds-input{
+    outline: none;
+    padding : 0px 0px 0px 0px;
+    border : none;
+}

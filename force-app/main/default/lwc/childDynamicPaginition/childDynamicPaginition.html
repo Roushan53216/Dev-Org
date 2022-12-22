@@ -1,0 +1,31 @@
+<template> 
+<!--Child Paginition Controller-->
+    <div>
+        <lightning-combobox
+            label="Objects"
+            placeholder="Select Object"
+            options={allObjects}
+            onchange={handleObjectChange} ></lightning-combobox>
+    </div>
+
+   <template if:true={showFeilds}>
+    <div>
+        <lightning-dual-listbox name="languages"
+                            label="Select Feilds"
+                            source-label="Available"
+                            selected-label="Selected"
+                            field-level-help="Selected Feilds"
+                            options={allFeilds}
+                            value={selectedFeilds}
+                            onchange={handleFeildChange}></lightning-dual-listbox>
+    </div>
+   </template>
+   
+   <template if:true={showFeilds}>
+    <div>
+        <lightning-button label="Show Records " onclick={showRecords}></lightning-button>
+    </div>
+   </template>
+
+
+</template>

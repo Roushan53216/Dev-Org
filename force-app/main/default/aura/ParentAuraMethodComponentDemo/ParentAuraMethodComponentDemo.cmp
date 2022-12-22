@@ -1,0 +1,4 @@
+<aura:component >
+    <c:ChildAuraMethodComponentDemo aura:id="childCmp"/>
+    <lightning:button label="Click" onclick="{!c.getTheValue}"/>
+</aura:component>

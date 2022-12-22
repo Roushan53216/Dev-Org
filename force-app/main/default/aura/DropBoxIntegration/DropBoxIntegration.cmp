@@ -1,0 +1,78 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" 
+                controller="DropBoxIntegration">
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doAuth}"/>
+    <aura:attribute name="accessToken" type="String" />
+    <aura:attribute name="spinner" type="Boolean"/>
+    <aura:attribute name="ShowFiles" type="Boolean" default="false"/>
+    <aura:attribute name="files" type="Map"/>
+    <aura:attribute name="folders" type="Map"/>
+    <aura:attribute name="filesOfFolders" type="Map"/>
+    <aura:attribute name="foldersOfFolders" type="Map"/> 
+    <aura:attribute name="showFolderFiles" type="boolean" default="false" />
+    <aura:attribute name="breadcrumbPath" type="String" />
+    <aura:attribute name="breadCrumbs" type="List" />
+    
+    
+    <aura:if isTrue="{!v.spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Getting Files...</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+    
+    <aura:renderIf isTrue="{!v.ShowFiles}">
+        <div class="folders">
+            Folders 
+        </div>
+        <br/>
+        <aura:iteration items="{!v.folders}" var="file" indexVar="key">
+            <div class="block">
+                    <div class="slds-truncate"> 
+                <a onclick="{!c.folderFiles}" data-id="{!file.key}" > {!file.value} </a> <br></br>
+            </div>
+        </div>
+        </aura:iteration>
+    </aura:renderIf>
+
+    <aura:renderIf isTrue="{!v.ShowFiles}">
+        <div class="folders">
+            Files 
+        </div>
+        <br/>
+        <aura:iteration items="{!v.files}" var="file" indexVar="key">
+            <div class="block">
+                    <div class="slds-truncate"> 
+                <a href="" onclick="{!c.downloadFile}" data-id="{!file.key}" > {!file.value} </a> <br></br>
+            </div>
+            </div>
+        </aura:iteration>
+    </aura:renderIf>
+    
+    <aura:renderIf isTrue="{!v.showFolderFiles}">
+        <lightning:breadcrumbs>
+            <lightning:breadcrumb label="Home " onclick="{!c.hideBreadCrumbs}"/>
+            <lightning:breadcrumb label="Dropbox" />
+        </lightning:breadcrumbs>
+        <aura:iteration items="{!v.foldersOfFolders}" var="file" indexVar="key">
+            <div class="block">
+                    <div class="slds-truncate"> 
+                <a onclick="{!c.folderFiles}" data-id="{!file.key}" > {!file.value} </a> <br></br>
+            </div>
+            </div>
+        </aura:iteration>
+        <br/>
+        <aura:iteration items="{!v.filesOfFolders}" var="file" indexVar="key">
+            <div class="block">
+                    <div class="slds-truncate"> 
+                <a href="" onclick="{!c.downloadFile}" data-id="{!file.key}" >  {!file.value} </a> <br></br>
+            </div>
+            </div>
+        </aura:iteration>
+    </aura:renderIf>
+    
+    
+</aura:component>

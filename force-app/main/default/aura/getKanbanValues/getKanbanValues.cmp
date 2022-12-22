@@ -1,0 +1,16 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
+    <c:ObjectAndFieldForKanban />
+
+    <aura:attribute name="objs" type="String" default="Hi"/>
+    <aura:attribute name="feilds" type="String[]" />
+    <aura:attribute name="PickVals" type ="String"/>
+    
+    <aura:handler name="evnt" event="c:KanbanEvent" action="{!c.getFieldsAndObj}"/>
+    
+    <p>Object Name : {!v.objs}</p>
+    <p>Feild Name : {!v.feilds}</p>
+    <p>PickList Value : {!v.pickVals}</p> 
+    
+    <Lightning:button label="check" onclick="{!c.getFieldsAndObj}"/>
+    
+</aura:component>

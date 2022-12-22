@@ -1,0 +1,19 @@
+.textCSS {
+    color: red;
+}
+.input# {
+    color: green;
+    font-weight: bold;
+}
+
+.slds-th__action {
+    color: blue;
+    justify-content: center !important;
+}
+
+.buttonCSS {
+    background: black;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+}
